@@ -1,13 +1,40 @@
 ---
 name: tp-develop-plan
-description: "Use when Codex needs to plan or execute a coding task through a disciplined five-step development workflow: grill-me clarification, PRD writing, Markdown issue/task breakdown, test-driven development, and readability-focused refactoring. Trigger for requests to build, fix, redesign, refactor, or plan code when the user wants clearer intent, implementation tasks, tests-first work, or code that is easier to read later."
+description: "Use when any coding agent, model, IDE, editor assistant, or terminal assistant needs to plan or execute a coding task through a disciplined five-step development workflow: grill-me clarification, PRD writing, Markdown issue/task breakdown, test-driven development, and readability-focused refactoring. Trigger for requests to build, fix, redesign, refactor, or plan code in Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, or any SKILL.md-compatible environment."
 ---
 
 # TP Develop Plan
 
-Use this skill to turn a coding request into a clear implementation path and, when execution is allowed, carry it through tests and readability cleanup.
+Use this skill to turn a coding request into a clear implementation path and, when execution is allowed, carry it through tests and readability cleanup across coding agents and IDEs.
 
 Follow the five stages in order unless the user explicitly asks to skip or compress a stage. If a stage is skipped, state the skip and the reason.
+
+## Agent and IDE Compatibility
+
+Treat this skill as plain Markdown procedural guidance. Do not depend on a specific model, UI, tool name, or agent runtime.
+
+Use it in any environment that can read `SKILL.md`-style instructions, including Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, and Zed.
+
+Map each step onto the tools available in the current environment:
+
+- Use repository search, file inspection, and editor navigation to understand code.
+- Use the local terminal or IDE task runner for tests, builds, typechecks, and linters.
+- Use browser tools only when the task needs web or UI verification.
+- Use issue trackers, pull request tools, or task systems only when the user asks for live external artifacts.
+- If a capability is unavailable, state the limitation and use the closest local verification path.
+
+## Reference Stage Catalog
+
+These reference stages are advisory sub-modes inspired by common `skills.sh` agent workflow patterns. They can sharpen one of the five mandatory stages, but they do not add extra required stages.
+
+- `grill-me`: Clarify requirements, constraints, and success criteria before planning.
+- `grill-with-docs`: Clarify by reading product docs, API docs, design references, or linked material before asking the user.
+- `triage`: Classify the work as bug, feature, refactor, migration, design change, or investigation before writing the PRD.
+- `prototype`: Spike a small throwaway approach when feasibility, API shape, or UX behavior is uncertain.
+- `codebase-design`: Model boundaries, ownership, data flow, and interfaces before structural work.
+- `improve-codebase-architecture`: Use before broad refactors that affect module boundaries or long-term maintainability.
+- `tdd`: Convert acceptance criteria into failing tests before changing production code.
+- `handoff`: Summarize current state, decisions, verification, and next steps for another agent or future session.
 
 ## Stage 1: grill-me
 
