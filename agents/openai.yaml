@@ -1,0 +1,4 @@
+interface:
+  display_name: "TP Develop Plan"
+  short_description: "Plan, test, implement, and refactor code"
+  default_prompt: "Use $tp-develop-plan to turn this coding request into a clarified PRD, task breakdown, TDD implementation, and readability refactor."
