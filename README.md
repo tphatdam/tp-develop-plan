@@ -1,34 +1,34 @@
 # TP Develop Plan
 
-`tp-develop-plan` là một skill workflow phát triển phần mềm dùng được cho nhiều coding agent và AI IDE. Skill này biến một yêu cầu code còn mơ hồ thành PRD rõ ràng, danh sách issue triển khai, vòng TDD, và bước refactor cuối để code dễ đọc hơn.
+`tp-develop-plan` is a portable software development workflow skill for coding agents and AI IDEs. It turns an unclear coding request into a clarified PRD, implementation issues, a TDD loop, and a final readability refactor.
 
-Skill được viết bằng Markdown thuần, nên có thể dùng trong các môi trường hiểu hướng dẫn kiểu `SKILL.md`, bao gồm Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, và các tool tương tự.
+The skill is written in plain Markdown, so it can be used in any environment that understands `SKILL.md`-style procedural guidance, including Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, and similar tools.
 
-## Giới Thiệu
+## Overview
 
-Workflow chính có 5 stage bắt buộc:
+The core workflow has five required stages:
 
-1. `grill-me`: hỏi rõ mục tiêu, phạm vi, ràng buộc và tiêu chí thành công.
-2. `prd`: viết PRD ngắn gọn trước khi triển khai.
-3. `issues`: chia PRD thành các task/issue dạng Markdown.
-4. `tdd`: viết hoặc cập nhật test trước khi sửa production code khi có thể.
-5. `refactor code`: cải thiện khả năng đọc code sau khi hành vi đã được verify.
+1. `grill-me`: clarify the goal, scope, constraints, and success criteria.
+2. `prd`: write a concise PRD before implementation.
+3. `issues`: break the PRD into Markdown implementation tasks.
+4. `tdd`: write or update tests before changing production code whenever practical.
+5. `refactor code`: improve readability after behavior has been verified.
 
-Skill cũng có các sub-mode tham khảo lấy cảm hứng từ workflow phổ biến trên `skills.sh`, như `grill-with-docs`, `triage`, `prototype`, `codebase-design`, `improve-codebase-architecture`, `tdd`, và `handoff`.
+The skill also includes optional reference sub-modes inspired by common workflow skills on `skills.sh`, such as `grill-with-docs`, `triage`, `prototype`, `codebase-design`, `improve-codebase-architecture`, `tdd`, and `handoff`.
 
-## Cài Đặt Nhanh
+## Quick Install
 
-Chạy lệnh này từ project root:
+Run this from your project root:
 
 ```bash
 npx skills add tphatdam/tp-develop-plan
 ```
 
-Sau đó mở session mới trong coding agent hoặc AI IDE để tool nhận skill vừa cài.
+Then start a new session in your coding agent or AI IDE so it can discover the installed skill.
 
-## Cài Đặt Thủ Công
+## Manual Install
 
-Clone repository và copy skill vào thư mục skills local:
+Clone the repository and copy the skill into your local skills directory:
 
 ```bash
 git clone https://github.com/tphatdam/tp-develop-plan.git
@@ -36,37 +36,37 @@ mkdir -p ~/.codex/skills
 cp -R tp-develop-plan ~/.codex/skills/tp-develop-plan
 ```
 
-Với các agent dùng skill theo từng repository, hãy copy `SKILL.md` vào đúng vị trí mà tool đó yêu cầu cho project skills.
+For repository-scoped agents, copy `SKILL.md` into the location your tool expects for project skills.
 
-## Cách Dùng
+## Usage
 
-Gọi skill trực tiếp bằng tên:
+Invoke the skill directly by name:
 
 ```text
 Use $tp-develop-plan to plan and implement this feature with grill-me, PRD, issues, TDD, and refactor stages.
 ```
 
-Hoặc mô tả tự nhiên:
+You can also ask naturally:
 
 ```text
 Use tp-develop-plan for this bugfix. Grill me first, then write the PRD, split issues, implement with TDD, and refactor for readability.
 ```
 
-## Phù Hợp Cho
+## Best For
 
-- Feature mới cần làm rõ yêu cầu trước khi code.
-- Bugfix cần test để verify hành vi.
-- Refactor cần giữ nguyên behavior nhưng làm code dễ đọc hơn.
-- Handoff giữa nhiều agent hoặc nhiều session.
-- Workflow dùng chung giữa Codex, Cursor, Claude Code, Antigravity, Kiro CLI và các IDE/agent khác.
+- New features that need clearer requirements before coding.
+- Bug fixes that should be verified by tests.
+- Refactors that must preserve behavior while making code easier to read.
+- Handoffs across multiple agents or multiple sessions.
+- Shared workflows across Codex, Cursor, Claude Code, Antigravity, Kiro CLI, and other AI IDEs or agents.
 
-## Nguyên Tắc Sử Dụng
+## Operating Principles
 
-- Không nhảy thẳng vào code khi yêu cầu còn mơ hồ.
-- Luôn biến acceptance criteria thành cách verify cụ thể.
-- Ưu tiên test trước khi sửa code nếu repo có test setup khả dụng.
-- Chỉ tạo GitHub Issues, PR hoặc artifact bên ngoài khi người dùng yêu cầu rõ.
-- Sau khi refactor, chạy lại cùng verification đã dùng ở stage TDD.
+- Do not jump straight into code when the request is still unclear.
+- Always turn acceptance criteria into concrete verification steps.
+- Prefer tests before production code when the repository has a viable test setup.
+- Create GitHub Issues, pull requests, or external artifacts only when the user explicitly asks.
+- After refactoring, rerun the same verification used during the TDD stage.
 
 ## Repository
 
