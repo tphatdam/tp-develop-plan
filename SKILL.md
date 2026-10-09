@@ -1,119 +1,114 @@
 ---
 name: tp-develop-plan
-description: "Use when any coding agent, model, IDE, editor assistant, or terminal assistant needs to plan or execute a coding task through a disciplined five-step development workflow: grill-me clarification, PRD writing, Markdown issue/task breakdown, test-driven development, and readability-focused refactoring. Trigger for requests to build, fix, redesign, refactor, or plan code in Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, or any SKILL.md-compatible environment."
+description: "Use when a coding agent, IDE, or terminal assistant needs to plan or deliver a feature, bug fix, refactor, investigation, or design change. Route work by risk and uncertainty; clarify requirements, obtain design approval when needed, create a PRD and dependency-aware task graph, implement test-first, review with evidence, and refactor safely across SKILL.md-compatible environments."
 ---
 
 # TP Develop Plan
 
-Use this skill to turn a coding request into a clear implementation path and, when execution is allowed, carry it through tests and readability cleanup across coding agents and IDEs.
+Turn a coding request into a clear, verified delivery path. Classify the work first, run only the matching gates, then use the five core stages in order unless the user explicitly asks to skip or compress one. State every skip and its reason.
 
-Follow the five stages in order unless the user explicitly asks to skip or compress a stage. If a stage is skipped, state the skip and the reason.
+## Compatibility and Precedence
 
-## Agent and IDE Compatibility
+Treat this skill as portable Markdown guidance for any `SKILL.md`-compatible environment. User instructions take precedence.
 
-Treat this skill as plain Markdown procedural guidance. Do not depend on a specific model, UI, tool name, or agent runtime.
+Use named companion skills only when they are installed and their trigger matches. If a companion skill is unavailable, follow the equivalent local procedure and state the limitation; do not block or copy its resources into this skill.
 
-Use it in any environment that can read `SKILL.md`-style instructions, including Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, and Zed.
+Use available repository search, documentation, tests, builds, typechecks, linters, browser checks, tracker integrations, and review tools. Create live issues, pull requests, or other external artifacts only when the user requests them.
 
-Map each step onto the tools available in the current environment:
+## Request Routing
 
-- Use repository search, file inspection, and editor navigation to understand code.
-- Use the local terminal or IDE task runner for tests, builds, typechecks, and linters.
-- Use browser tools only when the task needs web or UI verification.
-- Use issue trackers, pull request tools, or task systems only when the user asks for live external artifacts.
-- If a capability is unavailable, state the limitation and use the closest local verification path.
+Classify the request before planning or coding. Discover facts from the repository, product documentation, and linked references before asking the user for facts the environment can answer.
 
-## Reference Stage Catalog
+### Discovery Gate
 
-These reference stages are advisory sub-modes inspired by common `skills.sh` agent workflow patterns. They can sharpen one of the five mandatory stages, but they do not add extra required stages.
+For work governed by existing APIs, product rules, design references, or unfamiliar code, inspect those sources before clarification. Use `grill-with-docs` when available. Resolve terminology, current behavior, constraints, and relevant tests before asking decision questions.
 
-- `grill-me`: Clarify requirements, constraints, and success criteria before planning.
-- `grill-with-docs`: Clarify by reading product docs, API docs, design references, or linked material before asking the user.
-- `triage`: Classify the work as bug, feature, refactor, migration, design change, or investigation before writing the PRD.
-- `prototype`: Spike a small throwaway approach when feasibility, API shape, or UX behavior is uncertain.
-- `codebase-design`: Model boundaries, ownership, data flow, and interfaces before structural work.
-- `improve-codebase-architecture`: Use before broad refactors that affect module boundaries or long-term maintainability.
-- `tdd`: Convert acceptance criteria into failing tests before changing production code.
-- `handoff`: Summarize current state, decisions, verification, and next steps for another agent or future session.
+### Feature and UI Gate
 
-## Stage 1: grill-me
+For a new feature, UI, component, page, or creative behavior change, use `brainstorming` before implementation. Explore the project, clarify intent, compare viable approaches, present a design, and obtain explicit user approval before creating code or an implementation plan.
 
-Clarify the work before planning. Ask only questions that materially affect the implementation, and prefer discovering repository facts before asking.
+For UI work after approval, use `frontend-design` for deliberate visual direction and `ui-ux-pro-max` for design-system, accessibility, responsive, interaction, performance, and motion guidance when available. Carry approved UX decisions into the PRD and acceptance criteria.
 
-Cover:
+### Bug and Unexpected Behavior Gate
 
-- Goal and user-facing success criteria.
-- Audience or caller of the change.
-- In-scope and out-of-scope behavior.
-- Constraints such as compatibility, performance, security, release timing, or style.
-- Existing code paths, APIs, data models, and tests that shape the work.
+For a bug, regression, failed test, error, or unexpected behavior, use `superpowers:systematic-debugging` before proposing a fix. Reproduce the problem, inspect evidence and recent changes, trace the data flow, compare working paths, and test one root-cause hypothesis at a time. Add the smallest regression test after confirming the cause.
 
-Do not ask questions that can be answered by reading the repository. If the user has already provided enough detail, briefly state the locked assumptions and move on.
+### Uncertainty and Prototype Gate
 
-## Stage 2: prd
+When feasibility, an external API, data shape, performance, or UX behavior is uncertain, use `prototype` before committing to an implementation. State the question, success threshold, and narrow scope; label the result as throwaway. Do not convert a prototype into product code without returning to the relevant routing gate and plan.
 
-Write a concise PRD before implementation. Keep it practical and implementation-facing.
+### Architecture and Refactor Gate
 
-Include:
+For broad changes to module boundaries, ownership, public interfaces, data flow, or long-term maintainability, use `codebase-design` or `improve-codebase-architecture` when available. Map boundaries, consumers, contracts, migration needs, and verification before writing the PRD.
 
-- Problem statement.
-- Goals and non-goals.
-- Current behavior or current system shape.
-- Proposed behavior.
-- Acceptance criteria.
-- Risks, constraints, and open assumptions.
+Before structural refactoring, define a behavior-preservation boundary: public interfaces, failure behavior, ordering, compatibility, and the proof that protects them. Keep feature changes outside the refactor, move one ownership boundary at a time, and keep intermediate states buildable and testable.
 
-For small fixes, the PRD may be short, but it must still define success criteria clearly enough that tests can be derived from it.
+### Capability Discovery Gate
 
-## Stage 3: issues
+When required specialist knowledge, tooling, templates, or integrations are absent, use `find-skills`. Assess relevance, source reputation, and adoption before recommending installation. Do not install a skill or make an external change unless the user asks.
 
-Break the PRD into Markdown implementation issues/tasks. These are local planning artifacts unless the user explicitly asks to create live GitHub Issues.
+## Fallback Behavior
 
-Use this format:
+If a companion skill is unavailable, preserve its intent locally: investigate before asking, obtain design approval for new creative work, debug from evidence, keep spikes disposable, map architecture before broad change, test before implementation, and verify before completion. State the unavailable capability and the local substitute.
+
+## Five Core Stages
+
+### Stage 1: grill-me
+
+Clarify only decisions that materially affect delivery after applicable routing gates. Lock the goal, audience, success criteria, in-scope and out-of-scope behavior, compatibility, performance, security, release constraints, affected code paths, APIs, data models, and existing tests. If enough information exists, state the assumptions and continue.
+
+### Stage 2: prd
+
+Write a concise, implementation-facing PRD that includes the problem, goals and non-goals, current behavior, proposed behavior, acceptance criteria, constraints, risks, open assumptions, verification strategy, and the selected risk tier. Include approved UI and architecture decisions when applicable.
+
+### Stage 3: issues
+
+Break the PRD into a dependency-aware task graph, not a flat checklist. Each task must be independently understandable, name its dependencies, and expose its observable completion rule. Work only the frontier: tasks whose dependencies are complete. Order tasks so early work reduces uncertainty or unblocks later work.
+
+Use this local format unless the user requests a live tracker or `superpowers:writing-plans` supplies a richer plan:
 
 ```markdown
-## Issue 1: <title>
+## Task 1: <title>
 
+**Depends on:** <task numbers or none>
 **Outcome:** <observable result>
 **Work:** <specific implementation work>
-**Acceptance:** <how to verify this issue is complete>
+**Acceptance:** <test, build, or review evidence>
 ```
 
-Keep issues independently understandable. Order them so earlier issues reduce uncertainty or unblock later work.
+For multi-step delivery with Superpowers available, use `superpowers:writing-plans` after the PRD is stable. Use `superpowers:using-git-worktrees` when isolation is needed, then select `superpowers:executing-plans` for inline work or `superpowers:subagent-driven-development` when independent tasks benefit from parallel implementation and review.
 
-## Stage 4: tdd
+### Stage 4: tdd
 
-Drive implementation with tests first whenever the repository has a viable test setup.
+Use `superpowers:test-driven-development` when available. Otherwise, for each frontier task, identify the smallest meaningful failing test, add or update it before production code, run it to confirm the expected failure, implement the minimum change, then rerun focused and relevant broader verification.
 
-Process:
+If automated tests are not practical, state why and use the closest proof: typecheck, build, lint, snapshot review, or manual browser verification. Never claim success without fresh evidence.
 
-1. Identify the smallest meaningful failing test for the next issue.
-2. Add or update the test before production code.
-3. Run the focused test and confirm it fails for the expected reason.
-4. Implement the smallest code change that satisfies the test.
-5. Re-run the focused test, then run the broader relevant suite.
+### Stage 5: refactor code
 
-If tests are not practical, explain why and choose the closest verification method, such as typecheck, build, lint, snapshot review, or manual browser verification.
+After behavior is verified, refactor only inside the behavior-preservation boundary. Prefer domain-revealing names, less incidental duplication, clearer control flow, and existing local abstractions. Avoid unrelated cleanup, dependency growth without a correctness need, and feature work mixed into the refactor. Rerun the same proof after the change.
 
-## Stage 5: refactor code
+## Risk-Based Review and Verification
 
-After behavior is verified, refactor for future readability without changing behavior.
+Choose verification proportional to the blast radius:
 
-Prioritize:
+- **Low risk:** focused automated proof and a self-review of the changed path.
+- **Medium risk:** focused proof plus the relevant suite, build/typecheck, and a separate review pass when available.
+- **High risk:** independent review, explicit compatibility or migration checks, and before/after evidence for every affected boundary.
 
-- Naming that reflects domain intent.
-- Removing incidental duplication.
-- Flattening control flow where it improves comprehension.
-- Moving logic to existing local abstractions when that matches repository style.
-- Tightening comments so they explain why, not what.
+Use `superpowers:requesting-code-review`, `superpowers:verification-before-completion`, and `superpowers:finishing-a-development-branch` when their triggers match and they are available. Use `handoff` for multi-agent or multi-session work. Do not require an independent review loop for low-risk changes.
 
-Do not combine unrelated cleanup with the requested change. After refactoring, re-run the same verification used in Stage 4.
+Record delivery evidence in the final response, handoff, or pull request:
+
+```markdown
+## Delivery Evidence
+
+**Before:** <baseline behavior, failing test, screenshot, or command output>
+**After:** <passing test, screenshot, or command output>
+**Blast radius:** <low, medium, or high — affected boundaries>
+**Gaps:** <unverified area or none>
+```
 
 ## Final Response
 
-When the work is complete, report:
-
-- PRD summary and implemented issues.
-- Tests or verification run, including any failures or gaps.
-- Readability refactors made.
-- Files changed, only when useful for handoff.
+Report the routing gates used or unavailable, approved design decisions when applicable, PRD summary, completed task-graph frontier, verification evidence and gaps, refactor boundary, review status, and changed files when useful for handoff.

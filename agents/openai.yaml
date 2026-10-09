@@ -1,4 +1,4 @@
 interface:
   display_name: "TP Develop Plan"
-  short_description: "Cross-agent plan, TDD, and refactor workflow"
-  default_prompt: "Use $tp-develop-plan to turn this coding request into a clarified PRD, task breakdown, TDD implementation, and readability refactor."
+  short_description: "Risk-aware routing, plan, TDD, review, and safe refactor workflow"
+  default_prompt: "Use $tp-develop-plan to route this coding request, investigate before asking, obtain design approval when needed, then produce a PRD and dependency-aware task graph, implement test-first, and report fresh verification evidence."

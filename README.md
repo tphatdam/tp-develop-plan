@@ -1,20 +1,21 @@
 # TP Develop Plan
 
-`tp-develop-plan` is a portable software development workflow skill for coding agents and AI IDEs. It turns an unclear coding request into a clarified PRD, implementation issues, a TDD loop, and a final readability refactor.
+`tp-develop-plan` is a portable, risk-aware development workflow for coding agents and AI IDEs. It turns a coding request into a clarified, evidence-backed delivery path without forcing every task through the same ceremony.
 
-The skill is written in plain Markdown, so it can be used in any environment that understands `SKILL.md`-style procedural guidance, including Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, and similar tools.
+The skill is plain Markdown, so it works in Codex, Cursor, Claude Code, Antigravity, Kiro CLI, GitHub Copilot, Windsurf, Gemini, Cline, AMP, OpenCode, Roo, Trae, VS Code, Zed, and other `SKILL.md`-compatible environments.
 
-## Overview
+## Workflow
 
-The core workflow has five required stages:
+The skill first routes work only to the gates it needs:
 
-1. `grill-me`: clarify the goal, scope, constraints, and success criteria.
-2. `prd`: write a concise PRD before implementation.
-3. `issues`: break the PRD into Markdown implementation tasks.
-4. `tdd`: write or update tests before changing production code whenever practical.
-5. `refactor code`: improve readability after behavior has been verified.
+- Inspect existing code and product documentation before asking discoverable questions.
+- Require an approved design for new features and UI; diagnose bugs from evidence before proposing a fix.
+- Use a disposable prototype when feasibility, external APIs, performance, or UX is uncertain.
+- Map boundaries and compatibility before broad architecture or structural refactor work.
+- Discover missing specialist capabilities instead of assuming them.
+- Scale review and verification with the change's blast radius.
 
-The skill also includes optional reference sub-modes inspired by common workflow skills on `skills.sh`, such as `grill-with-docs`, `triage`, `prototype`, `codebase-design`, `improve-codebase-architecture`, `tdd`, and `handoff`.
+It then follows five core stages: `grill-me`, `prd`, `issues`, `tdd`, and `refactor code`. The issue stage is a dependency-aware task graph: only tasks on the current frontier are ready to implement.
 
 ## Quick Install
 
@@ -24,49 +25,36 @@ Run this from your project root:
 npx skills add tphatdam/tp-develop-plan
 ```
 
-Then start a new session in your coding agent or AI IDE so it can discover the installed skill.
-
-## Manual Install
-
-Clone the repository and copy the skill into your local skills directory:
-
-```bash
-git clone https://github.com/tphatdam/tp-develop-plan.git
-mkdir -p ~/.codex/skills
-cp -R tp-develop-plan ~/.codex/skills/tp-develop-plan
-```
-
-For repository-scoped agents, copy `SKILL.md` into the location your tool expects for project skills.
+Start a new agent session after installation so it discovers the skill.
 
 ## Usage
 
-Invoke the skill directly by name:
+For a feature:
 
 ```text
-Use $tp-develop-plan to plan and implement this feature with grill-me, PRD, issues, TDD, and refactor stages.
+Use $tp-develop-plan for this feature. Inspect the codebase first, present a design for approval, then create a PRD and task graph, implement test-first, and report delivery evidence.
 ```
 
-You can also ask naturally:
+For a bug fix:
 
 ```text
-Use tp-develop-plan for this bugfix. Grill me first, then write the PRD, split issues, implement with TDD, and refactor for readability.
+Use $tp-develop-plan to investigate and fix this regression. Establish the root cause from evidence, add a regression test, and verify the fix before refactoring.
 ```
 
-## Best For
+For a refactor:
 
-- New features that need clearer requirements before coding.
-- Bug fixes that should be verified by tests.
-- Refactors that must preserve behavior while making code easier to read.
-- Handoffs across multiple agents or multiple sessions.
-- Shared workflows across Codex, Cursor, Claude Code, Antigravity, Kiro CLI, and other AI IDEs or agents.
+```text
+Use $tp-develop-plan to refactor this module. Define the behavior-preservation boundary, keep feature changes out of scope, and prove behavior remains unchanged.
+```
 
 ## Operating Principles
 
-- Do not jump straight into code when the request is still unclear.
-- Always turn acceptance criteria into concrete verification steps.
+- Do not ask users for facts the repository or documentation can answer.
+- Keep prototypes throwaway until the real route and plan are approved.
+- Turn acceptance criteria into fresh, concrete verification evidence.
 - Prefer tests before production code when the repository has a viable test setup.
-- Create GitHub Issues, pull requests, or external artifacts only when the user explicitly asks.
-- After refactoring, rerun the same verification used during the TDD stage.
+- Keep feature changes out of structural refactors and rerun the same proof afterward.
+- Create GitHub Issues, pull requests, or other live artifacts only when the user explicitly asks.
 
 ## Repository
 
